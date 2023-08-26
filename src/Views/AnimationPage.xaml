@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="PlaygroundApp.Views.AnimationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:PlaygroundApp"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <Grid x:Name="Root">
+        <Grid Padding="20">
+            <StackPanel Spacing="20">
+                <TextBlock>
+                    Animation Page
+                </TextBlock>
+
+                <CheckBox x:Name="ModalCheckBox">
+                    Open Modal
+                </CheckBox>
+            </StackPanel>
+
+        </Grid>
+
+        <local:ModalDialog IsOpen="True">
+            <Border Padding="60" Background="White" CornerRadius="10">
+                <StackPanel Spacing="20">
+                    <TextBlock>
+                        H Hello World
+                    </TextBlock>
+
+                    <ToggleButton>
+                        Close
+                    </ToggleButton>
+                </StackPanel>
+
+            </Border>
+        </local:ModalDialog>
+    </Grid>
+</Page>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="using:PlaygroundApp">
+
+    <Style TargetType="local:ModalDialog">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ModalDialog">
+                    <Grid x:Name="RootElement" Visibility="Collapsed">
+                        <Rectangle x:Name="BackdropElement" Fill="Black" Opacity="0.3" />
+                        <ContentPresenter Margin="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" Content="{TemplateBinding Content}" />
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="OpenStates">
+
+                                <VisualState x:Name="Closed" />
+
+                                <VisualState x:Name="Open">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootElement" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetName="BackdropElement" Storyboard.TargetProperty="Opacity" To=".6" Duration="0:0:0.25" />
+                                    </Storyboard>
+
+                                    <VisualState.StateTriggers>
+                                        <StateTrigger IsActive="{TemplateBinding IsOpen}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
