@@ -6,22 +6,28 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:ModalDialog">
+
                     <Grid x:Name="RootElement" Visibility="Collapsed">
                         <Rectangle x:Name="BackdropElement" Fill="Black" Opacity="0.3" />
+
                         <ContentPresenter Margin="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" Content="{TemplateBinding Content}" />
 
                         <VisualStateManager.VisualStateGroups>
+
                             <VisualStateGroup x:Name="OpenStates">
 
                                 <VisualState x:Name="Closed" />
 
                                 <VisualState x:Name="Open">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootElement" Storyboard.TargetProperty="Visibility" Duration="0">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <DoubleAnimation Storyboard.TargetName="BackdropElement" Storyboard.TargetProperty="Opacity" To=".6" Duration="0:0:0.25" />
-                                    </Storyboard>
+                                    <VisualState.Setters>
+                                        <Setter Target="RootElement.Visibility" Value="Visible" />
+                                    </VisualState.Setters>
+                                    <!--<Storyboard>
+                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootElement" Storyboard.TargetProperty="Visibility" Duration="0">
+                         <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                     </ObjectAnimationUsingKeyFrames>
+                     <DoubleAnimation Storyboard.TargetName="BackdropElement" Storyboard.TargetProperty="Opacity" To=".6" Duration="0:0:0.25" />
+                 </Storyboard>-->
 
                                     <VisualState.StateTriggers>
                                         <StateTrigger IsActive="{TemplateBinding IsOpen}" />
@@ -30,6 +36,7 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </Grid>
+
                 </ControlTemplate>
 
             </Setter.Value>

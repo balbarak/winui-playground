@@ -19,7 +19,105 @@
                 <CheckBox x:Name="ModalCheckBox">
                     Open Modal
                 </CheckBox>
+
+                <local:BoxControl IsToggle="{Binding ElementName=ModalCheckBox, Path=IsChecked}">
+                    <local:BoxControl.Template>
+                        <ControlTemplate TargetType="local:BoxControl">
+                            <Grid x:Name="Root" Padding="20" Background="Red" Visibility="Collapsed">
+                                <TextBlock x:Name="TextElement" Text="Uncheck" />
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="ToggleStates">
+                                        <VisualState x:Name="NotToggleState" />
+                                        <VisualState x:Name="ToggleState">
+                                            <VisualState.Setters>
+                                                <Setter Target="TextElement.Text" Value="Checcccked" />
+                                                <Setter Target="Root.Background" Value="Yellow" />
+                                                <Setter Target="Root.Visibility" Value="Visible" />
+
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                        <VisualStateGroup.Transitions>
+                                            <VisualTransition To="ToggleState">
+
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Root" Storyboard.TargetProperty="Visibility" Duration="0">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                                    </ObjectAnimationUsingKeyFrames>
+
+                                                    <DoubleAnimation Storyboard.TargetName="Root" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.5" />
+                                                </Storyboard>
+                                            </VisualTransition>
+
+                                            <VisualTransition To="NotToggleState">
+                                                <Storyboard>
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetName="Root"
+                                                        Storyboard.TargetProperty="Opacity"
+                                                        From="0"
+                                                        To="1"
+                                                        Duration="0:0:1.5" />
+                                                </Storyboard>
+                                            </VisualTransition>
+                                        </VisualStateGroup.Transitions>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Grid>
+                        </ControlTemplate>
+                    </local:BoxControl.Template>
+                </local:BoxControl>
+
+                <ToggleButton IsChecked="False" Style="{x:Null}">
+                    Ok Dude
+                    <ToggleButton.Template>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Border Background="Yellow">
+                                <Grid>
+                                    <StackPanel Spacing="5">
+                                        <Ellipse x:Name="ElipseElement" Width="40" Height="40" Fill="Red" />
+
+                                        <TextBlock x:Name="TextElement" Visibility="Collapsed">
+                                            Checked Dude
+                                        </TextBlock>
+                                        <ContentPresenter Content="{TemplateBinding Content}" />
+                                    </StackPanel>
+
+                                </Grid>
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="MouseOver" />
+                                        <VisualState x:Name="Pressed" />
+                                        <VisualState x:Name="Disabled" />
+                                    </VisualStateGroup>
+
+                                    <VisualStateGroup x:Name="FocusStates">
+                                        <VisualState x:Name="Focused" />
+                                        <VisualState x:Name="Unfocused" />
+
+                                    </VisualStateGroup>
+
+                                    <VisualStateGroup x:Name="CheckStates">
+
+                                        <VisualState x:Name="Unchecked" />
+
+                                        <VisualState x:Name="Checked">
+                                            <VisualState.Setters>
+                                                <Setter Target="TextElement.Visibility" Value="Visible" />
+                                                <Setter Target="ElipseElement.Opacity" Value=".3" />
+                                            </VisualState.Setters>
+
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Border>
+                        </ControlTemplate>
+                    </ToggleButton.Template>
+                </ToggleButton>
             </StackPanel>
+
 
         </Grid>
 
@@ -36,6 +134,34 @@
                 </StackPanel>
 
             </Border>
+            <local:ModalDialog.Template>
+                <ControlTemplate TargetType="local:ModalDialog">
+                    <Grid x:Name="RootElement" Visibility="Collapsed">
+                        <Rectangle x:Name="BackdropElement" Fill="Black" Opacity="0.5" />
+
+                        <ContentPresenter Margin="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" Content="{TemplateBinding Content}" />
+
+                        <VisualStateManager.VisualStateGroups>
+
+                            <VisualStateGroup x:Name="OpenStates">
+
+                                <VisualState x:Name="Closed" />
+
+                                <VisualState x:Name="Open">
+
+                                    <VisualState.Setters>
+                                        <Setter Target="RootElement.Visibility" Value="Visible" />
+                                    </VisualState.Setters>
+
+                                    <VisualState.StateTriggers>
+                                        <StateTrigger IsActive="{TemplateBinding IsOpen}" />
+                                    </VisualState.StateTriggers>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </local:ModalDialog.Template>
         </local:ModalDialog>
     </Grid>
 </Page>

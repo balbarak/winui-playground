@@ -22,5 +22,11 @@ namespace PlaygroundApp
         {
             this.DefaultStyleKey = typeof(ModalDialog);
         }
+
+        protected override void OnApplyTemplate()
+        {
+            IsOpen = false;
+            base.OnApplyTemplate();
+        }
     }
 }
